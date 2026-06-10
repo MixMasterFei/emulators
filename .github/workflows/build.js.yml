@@ -2,7 +2,7 @@ name: build
 
 on:
   push:
-    branches: [ 8.xx ]
+    branches: [ 8.xx, savestate-fix ]
     tags:
       - "v*.*.*"
   pull_request:

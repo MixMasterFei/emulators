@@ -3896,6 +3896,15 @@ static void GUI_StartUp() {
         item->set_text("Reset window size");
     }
 
+    /* jsdos fix: upstream DOSBox-X registers the save/load state mapper handlers
+     * (hand_savestate / hand_loadstate) from sdlmain.cpp via AddSaveStateMapper().
+     * This file replaces sdlmain.cpp and never called it, so the F6/F7 quick
+     * save/load events (sendBackendEvent wc-trigger-event) resolved to nothing. */
+    {
+        void AddSaveStateMapper(void);
+        AddSaveStateMapper();
+    }
+
 #if defined(USE_TTF)
     void DBCSSBCS_mapper_shortcut(bool pressed);
     MAPPER_AddHandler(&DBCSSBCS_mapper_shortcut, MK_nothing, 0, "dbcssbcs", "CJK: Switch between DBCS/SBCS modes", &item);
